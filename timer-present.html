@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Timer to Everything</title>
+</head>
+
+<body style="margin: 0; padding: 0">
+    <div style="display: flex; flex-direction: column; height: 100vh">
+
+    <form>
+        <input id=url size=70 placeholder=URL></input>
+        <input id=m size=2 value=5 placeholder=5></input>:<input id=s size=2 value=00 placeholder=00></input>
+        <button id=start>Start</button>
+        <button id=stop>Stop</button>
+
+        <span id=message></span>
+    </form>
+
+    <iframe
+        id=iframe
+        style="border: 0; height: 100%"
+        width="100%"
+    ></iframe>
+
+    <script>
+var iframe = document.getElementById('iframe');
+var url = document.getElementById('url');
+var start = document.getElementById('start')
+var stop = document.getElementById('stop')
+var m = document.getElementById('m')
+var s = document.getElementById('s')
+var message = document.getElementById('message')
+
+var secondsRemaining;
+var interval;
+
+function loadUrl(e) {
+    if (e.keyCode == 13) {
+        iframe.src = url.value;
+        message.innerHTML = 'Loading...'
+        iframe.addEventListener('load', () => {
+            message.innerHTML = ''
+        })
+        e.preventDefault();
+    }
+}
+
+function startTimer(e) {
+    e.preventDefault()
+    var parsedSeconds = parseInt(m.value) * 60 + parseInt(s.value)
+
+    if (isNaN(parsedSeconds)) {
+        alert("Those aren't numbers")
+        return
+    }
+    secondsRemaining = parsedSeconds
+    interval = setInterval(tick, 1000)
+}
+
+function stopTimer(e) {
+    e.preventDefault()
+    clearInterval(interval)
+}
+
+function tick() {
+    secondsRemaining -= 1
+    m.value = Math.floor(secondsRemaining / 60)
+    s.value = secondsRemaining % 60
+
+    if (secondsRemaining === 0) {
+        clearInterval(interval)
+        alert("Time's up!")
+    }
+}
+
+url.addEventListener('keypress', loadUrl)
+start.addEventListener('click', startTimer)
+stop.addEventListener('click', stopTimer)
+    </script>
+
+    </div>
+</body>
+</html>
