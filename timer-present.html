@@ -3,12 +3,18 @@
 <head>
     <title>Add Timer to Everything</title>
 </head>
+<style>
+input[type="text"], form *
+{
+    font-size:24px;
+}
+</style>
 
 <body style="margin: 0; padding: 0">
     <div style="display: flex; flex-direction: column; height: 100vh">
 
     <form>
-        <input id=url size=70 placeholder=URL></input>
+        <input id=url size=40 placeholder="URL (Enter to load)"></input>
         <input id=m size=2 value=5 placeholder=5></input>:<input id=s size=2 value=00 placeholder=00></input>
         <button id=start>Start</button>
         <button id=stop>Stop</button>
